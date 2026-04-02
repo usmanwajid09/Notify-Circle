@@ -1,231 +1,98 @@
-# 📋 Task Manager App — Flutter + SQLite
+<div align="center">
+  <img src="https://img.icons8.com/color/96/000000/appointment-reminders--v1.png" alt="Notify Circle Logo" width="80" />
+  <h1>Notify Circle</h1>
+  <p><em>A frictionless, high-utility Personal Reminder & Notification System</em></p>
+
+  <p>
+    <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Built_with-Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" /></a>
+    <img src="https://img.shields.io/badge/State-GetX-FF5722?style=for-the-badge&logo=dart" alt="GetX" />
+    <img src="https://img.shields.io/badge/Database-SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
+  </p>
+</div>
 
 ---
 
-## ⚠️ IMPORTANT: Notifications Require a Physical Device
+## 📖 Overview
 
-> Local push notifications **DO NOT work** in Chrome, Edge, or most Android emulators.  
-> You **must** connect a real Android phone via USB to see them.
+**Notify Circle** is designed with a core purpose: to provide users with a streamlined, frictionless interface for creating, managing, and receiving time-sensitive alerts. Moving away from bloated productivity apps, it focuses on task clarity, urgency visualization, and a "get-in-get-out" user flow that minimizes cognitive load while maximizing task completion.
 
----
-
-## 📁 Project Structure
-
-```
-task_manager/
-├── lib/
-│   ├── main.dart                         ← App entry point + GetX setup
-│   ├── models/
-│   │   ├── task.dart                     ← Task data model
-│   │   └── subtask.dart                  ← Subtask model (progress tracking)
-│   ├── db/
-│   │   └── database_helper.dart          ← SQLite CRUD operations
-│   ├── controllers/
-│   │   └── task_controller.dart          ← GetX state management
-│   ├── services/
-│   │   └── notification_service.dart     ← Local notification scheduling
-│   ├── utils/
-│   │   ├── theme_controller.dart         ← Light/dark theme + color palette
-│   │   └── export_helper.dart            ← CSV, PDF, Email export
-│   ├── screens/
-│   │   ├── home_screen.dart              ← Main screen with date picker + tabs
-│   │   ├── add_task_screen.dart          ← Add / Edit task form
-│   │   ├── completed_screen.dart         ← Completed tasks tab
-│   │   ├── repeated_screen.dart          ← Repeated tasks tab
-│   │   └── settings_screen.dart          ← Theme + notification settings
-│   └── widgets/
-│       └── task_tile.dart                ← Task card with swipe + subtasks
-├── android/
-│   └── app/
-│       ├── build.gradle                  ← minSdk, desugaring config
-│       └── src/main/
-│           └── AndroidManifest.xml       ← Notification permissions
-├── assets/
-│   ├── images/                           ← App images
-│   └── sounds/                           ← Custom notification sounds
-└── pubspec.yaml                          ← All dependencies
-```
+### 🎨 Design Philosophy : Clinical Minimalism
+The UI follows a strict Clinical Minimalism aesthetic inspired by top-tier productivity apps:
+* **High-Contrast & Airy:** Prioritizing readability and immediate focus on active tasks.
+* **Color Palette:** 
+  * 🔵 **Primary:** `#007AFF` (Action Blue)
+  * ⚪ **Background:** `#FFFFFF` (Pure White)
+  * 🔴 **Accent/Urgent:** `#FF3B30` 
+  * 🟢 **Success:** `#34C759`
+* **Typography:** Clean, generous line-heights utilizing system Sans-Serif (Inter/SF Pro).
 
 ---
 
-## 🚀 Setup & Run Instructions
+## ✨ Key Features
 
-### Step 1 — Prerequisites
+* **Smart Dashboard:** A sticky "Today" header with horizontal quick-toggle chips (All, Work, Personal, Urgent).
+* **Frictionless Creation:** A bottom-sheet modal overlay with autofocusing text inputs and quick-selection pills for rapid task entry.
+* **Persistent Reminders:** Highly reliable local notifications on Android utilizing precise timing (`flutter_local_notifications` + `AlarmManager` permissions).
+* **Cross-Platform Readiness:** Runs natively on Android/iOS with data persistence, and gracefully downgrades to in-memory stubs for flawless web deployment.
+* **Rich Interactions:** Staggered list animations, swipe-to-delete/complete gestures, and a slick Light/Dark mode toggle.
+* **Exporting & Sharing:** One-tap compilation of tasks to **PDF, CSV**, or direct Email sharing.
 
-- Flutter SDK installed (`flutter doctor` should show ✅)
-- Android Studio or VS Code with Flutter plugin
-- A real Android phone (for notifications)
-- USB cable + USB Debugging enabled on your phone
+---
 
-### Step 2 — Clone & Install
+## 🛠️ Architecture & Tech Stack
 
-```bash
-git clone <your-repo-url>
-cd task_manager
-flutter pub get
-```
+* **Framework:** Flutter (v3.19+)
+* **State Management:** GetX (Reactive programming, route management, dependency injection)
+* **Local Storage:** `sqflite` (relational SQL database for Android/iOS) and `get_storage` (theme preservation)
+* **Web Compatibility Engine:** Utilizes dart's conditional imports (`dart.library.io`) to seamlessly switch between deep native APIs and web-safe mock stubs without crashing.
 
-### Step 3 — Connect Your Android Device
+---
 
-1. On your phone: **Settings → Developer Options → Enable USB Debugging**
-2. Plug in via USB
-3. Verify your device is detected:
+## 🚀 Getting Started
+
+### Prerequisites
+* Flutter SDK (3.19.5 or compatible)
+* A physical Android/iOS device (Highly recommended for testing push notifications. Emulators/web browsers do not support local device notifications).
+
+### Local Execution
+
+1. **Clone the repository:**
    ```bash
-   flutter devices
-   ```
-   You should see your phone listed, e.g.:
-   ```
-   SM-A525F (mobile) • R5CR... • android-arm64
+   git clone https://github.com/usmanwajid09/Notify-Circle.git
+   cd Notify-Circle
    ```
 
-### Step 4 — Run on Device
+2. **Install dependencies:**
+   ```bash
+   flutter pub get
+   ```
 
+3. **Run on a physical device:**
+   Ensure USB Debugging is on.
+   ```bash
+   flutter run
+   ```
+
+4. **Run on Local Web (UI testing):**
+   ```bash
+   flutter run -d chrome
+   ```
+   *Note: Push notifications and persistent SQLite databases are simulated gracefully in the web environment.*
+
+---
+
+## 📦 Deployment (Vercel / GitHub Pages)
+
+Because Notify Circle utilizes robust cross-platform fallback stubs, the app can be easily hosted statically on the web.
+
+**To build for the Web:**
 ```bash
-flutter run -d <device-id>
-# Example:
-flutter run -d R5CR20XXXXX
+flutter build web --release
 ```
-
-### Step 5 — Build APK
-
-```bash
-flutter build apk --release
-# Output: build/app/outputs/flutter-apk/app-release.apk
-```
+You can safely deploy the resulting `build/web/` folder directly to **Vercel**, **Netlify**, or **GitHub Pages**.
 
 ---
 
-## 🔔 How Local Notifications Work
-
-| What                   | How                                                          |
-|------------------------|--------------------------------------------------------------|
-| **Library**            | `flutter_local_notifications` v17+                          |
-| **Trigger**            | Scheduled via `zonedSchedule()` using device timezone        |
-| **When fires**         | X minutes before task `startTime` (user-configured: 5–60 min)|
-| **Repeat tasks**       | Uses `matchDateTimeComponents: DateTimeComponents.time` for daily repeat |
-| **After reboot**       | `RECEIVE_BOOT_COMPLETED` permission reschedules alarms       |
-| **Android 12+**        | `SCHEDULE_EXACT_ALARM` + `USE_EXACT_ALARM` permissions granted |
-| **Physical device**    | ✅ Notifications appear in status bar                        |
-| **Chrome/Edge/Emulator** | ❌ Will not work                                           |
-
-### Notification Flow
-
-```
-User adds task → task saved to SQLite → NotificationService.scheduleTaskNotification()
-    → flutter_local_notifications → Android AlarmManager
-    → [At reminder time] → Notification appears in device status bar
-```
-
----
-
-## 🗄️ Database Schema (SQLite)
-
-### `tasks` table
-
-| Column      | Type    | Description                        |
-|-------------|---------|------------------------------------|
-| id          | INTEGER | Primary key (auto-increment)       |
-| title       | TEXT    | Task title (required)              |
-| description | TEXT    | Optional details                   |
-| date        | TEXT    | `yyyy-MM-dd` format                |
-| startTime   | TEXT    | `HH:mm` format                     |
-| endTime     | TEXT    | `HH:mm` format                     |
-| isCompleted | INTEGER | 0 = pending, 1 = done              |
-| color       | TEXT    | Color index (0–5)                  |
-| isRepeated  | INTEGER | 0 = no, 1 = yes                    |
-| repeatDays  | TEXT    | `"Mon,Tue,Wed"` comma-separated    |
-| category    | TEXT    | Personal / Work / Shopping / etc.  |
-| remind      | INTEGER | Minutes before task (5,10,15,30,60)|
-
-### `subtasks` table
-
-| Column | Type    | Description                      |
-|--------|---------|----------------------------------|
-| id     | INTEGER | Primary key                      |
-| taskId | INTEGER | FK → tasks.id (CASCADE DELETE)   |
-| title  | TEXT    | Subtask label                    |
-| isDone | INTEGER | 0 = pending, 1 = done            |
-
----
-
-## ✅ Marks Coverage
-
-| Component                    | Implementation                                              | Marks |
-|------------------------------|-------------------------------------------------------------|-------|
-| **1. Project Setup & Design**| Flutter project, GetX, Google Fonts, themed UI              | 10    |
-| **2. Database Integration**  | SQLite via `sqflite`, tasks + subtasks tables, full CRUD    | 10    |
-| **3. Task Management**       | Add, Edit, Delete, Mark Complete (swipe gestures)           | 20    |
-| **4. Advanced Features**     | Subtask progress bars, CSV/PDF/Email export, color themes   | 20    |
-| **5. Repeat Functionality**  | Daily repeat with day-of-week selection, auto re-schedule   | 10    |
-| **6. Notifications**         | `flutter_local_notifications`, scheduled + exact alarms     | 10    |
-| **7. User Interface**        | Material 3, dark/light mode, date picker, animated lists    | 10    |
-| **8. Docs & GitHub**         | README, inline code comments, video demo                    | 10    |
-| **TOTAL**                    |                                                             | **100** |
-
----
-
-## 📦 Key Dependencies
-
-```yaml
-sqflite: ^2.3.3                    # SQLite database
-flutter_local_notifications: ^17   # Push notifications (local)
-timezone: ^0.9.4                   # Timezone support for scheduling
-flutter_timezone: ^2.0.0           # Get device timezone
-get: ^4.6.6                        # State management + navigation
-get_storage: ^2.1.1               # Persist theme setting
-date_picker_timeline: ^1.2.5       # Horizontal date picker
-google_fonts: ^6.2.1               # Typography
-flutter_staggered_animations        # Animated list entries
-csv: ^6.0.0                        # CSV export
-pdf: ^3.11.1                       # PDF export
-share_plus: ^10.0.2               # Share/email files
-intl: ^0.19.0                      # Date formatting
-permission_handler: ^11.3.1        # Runtime permissions
-```
-
----
-
-## 🎮 App Features Summary
-
-- **Today View** — Tasks filtered to selected date via horizontal date picker
-- **Completed View** — All marked-done tasks with "Clear All" option
-- **Repeated View** — Tasks with daily/weekly recurrence shown with day chips
-- **Add / Edit Task** — Full form with: title, description, date, time, category, color, repeat, remind
-- **Subtasks + Progress** — Expand any task to add subtasks, see % progress bar
-- **Swipe Gestures** — Swipe right = mark complete, Swipe left = delete
-- **Dark / Light Mode** — Persists across app restarts via GetStorage
-- **Export** — CSV, PDF, or Email share with full task list
-- **Settings Screen** — Test notification button, sound picker, app info
-
----
-
-## 📹 Video Demo Checklist
-
-Record your screen showing:
-
-1. [ ] App launch on physical Android device
-2. [ ] Add a new task with a reminder (e.g., 5 minutes from now)
-3. [ ] Add subtasks + see progress bar update
-4. [ ] Mark task as complete via swipe
-5. [ ] Navigate to Completed tab
-6. [ ] Add a repeating task (select days Mon–Fri)
-7. [ ] Navigate to Repeated tab
-8. [ ] Toggle dark mode
-9. [ ] Export tasks as PDF
-10. [ ] Wait for the scheduled notification to appear in the status bar
-
----
-
-## 🐛 Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| Notifications not showing | Run on a **physical device**, not emulator |
-| `SCHEDULE_EXACT_ALARM` denied | Go to phone Settings → Apps → Task Manager → Permissions → Alarms & Reminders → Allow |
-| `flutter pub get` fails | Run `flutter clean` first, then `flutter pub get` |
-| Build error about desugaring | Make sure `coreLibraryDesugaringEnabled true` is in `android/app/build.gradle` |
-| SQLite data lost | Normal on first install; data persists across app restarts after that |
-
----
-
-*Built with ❤️ using Flutter × SQLite × GetX*
+<div align="center">
+  <i>Built meticulously with 💙 using Flutter</i>
+</div>
