@@ -9,6 +9,9 @@ tar xf flutter_linux_3.19.5-stable.tar.xz
 # Temporarily add Flutter to the PATH of the Vercel build container
 export PATH="$PATH:`pwd`/flutter/bin"
 
+# Fix "dubious ownership" error in Vercel's root container so Flutter can detect its version
+git config --global --add safe.directory `pwd`/flutter
+
 echo "=== Installing dependencies ==="
 flutter config --no-analytics
 flutter pub get
