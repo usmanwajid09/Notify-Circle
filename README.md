@@ -92,6 +92,9 @@ flutter build web --release
 You can safely deploy the resulting `build/web/` folder directly to **Vercel**, **Netlify**, or **GitHub Pages**.
 
 ---
+##  Vercel Link
+
+https://notify-circle.vercel.app/
 
 <div align="center">
   <i>Built meticulously with 💙 using Flutter</i>
