@@ -1,10 +1,5 @@
 # 📋 Task Manager App — Flutter + SQLite
 
-> **Course:** Mobile Application Development  
-> **Instructor:** Muhammad Abrar Saddique  
-> **Submission Date:** 30/03/2026  
-> **Total Marks:** 100
-
 ---
 
 ## ⚠️ IMPORTANT: Notifications Require a Physical Device
